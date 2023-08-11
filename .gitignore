@@ -3,5 +3,5 @@ db.sqlite3
 /static
 /media
 .idea
-.DS_store
+.DS_Store
 .vscode

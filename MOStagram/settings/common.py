@@ -14,8 +14,7 @@ import os
 from os.path import abspath, dirname
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = dirname(dirname(dirname(
-    abspath(__file__))))  # abspath:절대경로, dirname:부모경로
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))  # abspath:절대경로, dirname:부모경로 ./frontend 폴더로 감
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
