@@ -7,8 +7,9 @@ def signup(request):
   if request.method == "POST":
     form = SignupForm(request.POST)
     if form.is_valid():
-      form.save()
+      signed_user = form.save()
       messages.success(request, "회원가입 환영합니다.")
+      signed_user.send_welcome_email() # FIXME: Celey로 처리하는 것을 추천.
       # request에서 GET인자에서 'next'가 없으면 '/'로 설정을 하겠다.
       next_url = request.GET.get('next', '/')
       return redirect(next_url)

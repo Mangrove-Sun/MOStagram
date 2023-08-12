@@ -5,3 +5,7 @@ db.sqlite3
 .idea
 .DS_Store
 .vscode
+
+# 환경변수
+.env
+env.sh
