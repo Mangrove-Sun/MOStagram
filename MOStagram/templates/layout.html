@@ -50,7 +50,9 @@
                   </svg>
                 </a>
                 <a class="p-2 text-dark" href="#">
-                  {{ user }}
+                  {% comment %} MOStagram/urls.py에서 'identicon/image/<path:data>/'로 지정했기때문에, 아래 url 에서 data='' 하고 지정해줘도 된다. {% endcomment %}
+                  {% comment %} <img src="{% url 'pydenticon_image' data=user.username %}" alt="Profile_image" style="width: 24px; height: 24px;"/> {% endcomment %}
+                  <img src="{% url 'pydenticon_image' user.username %}" alt="Profile_image" style="width: 24px; height: 24px;"/>
                 </a>
               </nav>
             </div>
