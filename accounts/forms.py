@@ -32,3 +32,7 @@ class SignupForm(UserCreationForm):
   #       raise forms.ValidationError("이미 등록된 이메일 주소입니다.")
   #   return username
         
+class ProfileForm(forms.ModelForm):
+  class Meta:
+    model = User
+    fields = ['avatar', 'first_name', 'last_name', 'website_url', 'bio', 'phone_number', 'gender']
