@@ -3,7 +3,15 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
-class Post(models.Model):
+
+class BaseModel(models.Model):
+  created_at = models.DateTimeField(auto_now_add = True)
+  updated_at = models.DateTimeField(auto_now = True)
+  
+  class Meta:
+    abstract = True
+    
+class Post(BaseModel):
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE) # 외래키이기 때문에 on_delete-models.CASCADE 적용
   photo = models.ImageField(upload_to = "instagram/post/%Y/%m/%d")
   caption = models.TextField(max_length = 500)
