@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .models import Post
 
 
@@ -20,6 +20,7 @@ def index(request):
     "post_list": post_list,
     "suggested_user_list": suggested_user_list,
   })
+
 
 @login_required
 def post_new(request):
@@ -38,11 +39,13 @@ def post_new(request):
     'form': form,
   })
   
+  
 def post_detail(request, pk):
   post = get_object_or_404(Post, pk = pk)
   return render(request, "instagram/post_detail.html", {
     "post": post
   })
+  
   
 @login_required
 def post_like(request, pk):
@@ -52,6 +55,7 @@ def post_like(request, pk):
   redirect_url = request.META.get("HTTP_REFERER", "root")
   return redirect(redirect_url)
 
+
 @login_required
 def post_unlike(request, pk):
   post = get_object_or_404(Post, pk = pk)
@@ -59,6 +63,26 @@ def post_unlike(request, pk):
   messages.success(request, f"{post}를 좋아요를 취소합니다.")
   redirect_url = request.META.get("HTTP_REFERER", "root")
   return redirect(redirect_url)
+  
+  
+@login_required
+def comment_new(request, post_pk):
+  post = get_object_or_404(Post, pk = post_pk)
+  
+  if request.method == 'POST':
+    form = CommentForm(request.POST, request.FILES)
+    if form.is_valid():
+      comment = form.save(commit = False)
+      comment.post = post
+      comment.author = request.user
+      comment.save()
+      return redirect(comment.post)
+  else:
+    form = CommentForm()
+  return render(request, "instagram/comment_form.html", {
+    "form": form,
+  })
+  
   
 def user_page(request, username):
   page_user = get_object_or_404(get_user_model(), username = username, is_active = True)
