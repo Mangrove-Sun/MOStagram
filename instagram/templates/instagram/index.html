@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="container">
-    <div class="row">
+    <div class="row mb-3">
       <div class="col-sm-12">
         {% comment %} 'instagram: ' 부분은 각 urls.py에서 정한 app_name을 말한다. {% endcomment %}
         <a href="{% url 'instagram:post_new' %}" class="btn btn-primary">새 포스팅 쓰기</a>
@@ -10,9 +10,11 @@
     </div>
     <div class="row">
       <div class="col-sm-8">
-        Timeline
-        <hr/>
-        {{ user.following_set.all }}
+        {% for post in post_list %}
+        <div class="mb-3">
+          {% include "instagram/_post_card.html" %}
+        </div>
+        {% endfor %}
       </div>
       <div class="col-sm-4">
         {% include 'instagram/timeline_sidebar.html' %}
