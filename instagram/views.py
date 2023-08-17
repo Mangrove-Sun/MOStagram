@@ -81,6 +81,7 @@ def comment_new(request, post_pk):
       comment.post = post
       comment.author = request.user
       comment.save()
+      # is_ajax()는 Django 4.x로 넘어가면서 지원 안돼서 django~=3.2.0으로 버전 다운그레이드 함.
       if request.is_ajax():
         return render(request, "instagram/_comment.html", {
           "comment": comment
